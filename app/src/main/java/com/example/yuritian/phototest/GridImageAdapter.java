@@ -28,7 +28,11 @@ public class GridImageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return data.size();
+        if (data.size()==9){
+            return data.size();
+        }else {
+            return data.size()+1;
+        }
     }
 
     @Override
@@ -44,14 +48,24 @@ public class GridImageAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView==null){
-            ImageView imageView = new ImageView(context);
-            Bitmap bitmap = BitmapFactory.decodeFile(data.get(position));
-            imageView.setImageBitmap(bitmap);
-            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-            imageView.setPadding(5,5,5,5);
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dip2px(context,88),dip2px(context,88));
-            imageView.setLayoutParams(params);
-            convertView=imageView;
+            if (position > data.size()){
+                ImageView imageView = new ImageView(context);
+                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_addpic_focused));
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setPadding(5, 5, 5, 5);
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dip2px(context, 88), dip2px(context, 88));
+                imageView.setLayoutParams(params);
+                convertView = imageView;
+            }else {
+                ImageView imageView = new ImageView(context);
+                Bitmap bitmap = BitmapFactory.decodeFile(data.get(position));
+                imageView.setImageBitmap(bitmap);
+                imageView.setScaleType(ImageView.ScaleType.FIT_XY);
+                imageView.setPadding(5, 5, 5, 5);
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dip2px(context, 88), dip2px(context, 88));
+                imageView.setLayoutParams(params);
+                convertView = imageView;
+            }
         }
         return convertView;
     }
