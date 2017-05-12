@@ -3,6 +3,7 @@ package com.example.yuritian.phototest;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,12 @@ import java.util.List;
 public class GridImageAdapter extends BaseAdapter {
     private Context context;
     private List<String> data;
+    private int screenWidth;
 
-    public GridImageAdapter(Context context, List<String> data) {
+    public GridImageAdapter(Context context, List<String> data,int screenWidth) {
         this.context = context;
         this.data = data;
+        this.screenWidth = screenWidth;
     }
 
     @Override
@@ -48,12 +51,12 @@ public class GridImageAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if(convertView==null){
-            if (position > data.size()){
+            if (position > data.size()-1){
                 ImageView imageView = new ImageView(context);
                 imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.icon_addpic_focused));
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setPadding(5, 5, 5, 5);
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dip2px(context, 88), dip2px(context, 88));
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dip2px(context, 80), dip2px(context, 80));
                 imageView.setLayoutParams(params);
                 convertView = imageView;
             }else {
@@ -62,7 +65,7 @@ public class GridImageAdapter extends BaseAdapter {
                 imageView.setImageBitmap(bitmap);
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 imageView.setPadding(5, 5, 5, 5);
-                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dip2px(context, 88), dip2px(context, 88));
+                ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(dip2px(context, 80), dip2px(context, 80));
                 imageView.setLayoutParams(params);
                 convertView = imageView;
             }
